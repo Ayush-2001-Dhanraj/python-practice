@@ -273,8 +273,7 @@ for epoch in range(10001):
     data_loss = loss_activation.forward(dense2.output, y)
 
     regularization_loss = \
-        loss_activation.loss.regularization_loss(dense1) + \
-        loss_activation.loss.regularization_loss(dense2)
+        loss_activation.loss.regularization_loss(dense1) + loss_activation.loss.regularization_loss(dense2)
 
     loss = data_loss + regularization_loss
 
@@ -288,7 +287,7 @@ for epoch in range(10001):
         accuracies.append(accuracy)
         losses.append(loss)
         learning_rate.append(optimizer.current_learning_rate)
-        print(f'epoch: {epoch}, ' + f'acc: {accuracy:.3f}, ' + f'loss: {loss:.3f}, ' + f'lr: {optimizer.current_learning_rate}')
+        print(f'epoch: {epoch}, ' + f'acc: {accuracy:.3f}, ' + f'loss: {loss:.3f}, ' + f'lr: {optimizer.current_learning_rate:.3f}')
 
     loss_activation.backward(loss_activation.output, y)
     dense2.backward(loss_activation.dinputs)
