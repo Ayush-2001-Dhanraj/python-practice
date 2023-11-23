@@ -92,16 +92,16 @@ the target number 2 occurs at position 5.
 
 def firstMatch(cards, mid, query):
     if cards[mid] == query:
-        if cards[mid] == cards[mid - 1]:
+        if mid > 0 and cards[mid] == cards[mid - 1]:
             return "left"
         else:
             return "found"
     elif cards[mid] > query:
         # move right
-        return "right"
+        return "left"
     else:
         # move left
-        return "left"
+        return "right"
     
 
 def binary_search(cards, query):
@@ -122,18 +122,27 @@ def search_in_rotated_list(list, target):
     rotations = binary_search_find_rotations(list)
     print("rotations", rotations)
     if rotations <= 0:
-        print("in sinle")
         return binary_search(list, target)
     else:
         left_list = list[:rotations]
         right_list = list[rotations:]
-        print("left_list",left_list)
-        print("right_list",right_list)
-        return max(binary_search(left_list, target), binary_search(right_list, target) + rotations + 1)
+        left_res =  binary_search(left_list, target)
+        right_res = binary_search(right_list, target)
+        print("left_list",left_list, left_res)
+        print("right_list",right_list,  right_res)
+        if left_res >= 0:
+            return left_res + 1
+        elif right_res >= 0:
+            return right_res + rotations + 1
+        else:
+            return -1
     
 tests_search = [
     {'input': {'list': [5, 6, 9, 0, 2, 3, 4], 'target': 2}, 'output': 5},
-    {'input': {'list': [5, 6, 9, 0, 2, 3, 4], 'target': 9}, 'output': 2},
+    {'input': {'list': [5, 6, 9, 0, 2, 3, 4], 'target': 9}, 'output': 3},
+    {'input': {'list': [5, 6, 9, 0, 2, 3, 4], 'target': 5}, 'output': 1},
+    {'input': {'list': [5, 6, 9, 0, 2, 3, 4], 'target': 4}, 'output': 7},
+    {'input': {'list': [5, 6, 9, 0, 2, 3, 4], 'target': 3}, 'output': 6},
 ]
 
 evaluateTests(search_in_rotated_list, tests_search)
