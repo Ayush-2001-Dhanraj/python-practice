@@ -26,6 +26,8 @@ class Stack() :
             self.top = new_node
 
     def pop(self):
+        if not self.top:
+            return
         deleted_node = self.top
         self.top = self.top.next
         deleted_node.next = None
