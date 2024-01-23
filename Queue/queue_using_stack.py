@@ -1,7 +1,3 @@
-"""
-Stack using linked list
-"""
-
 class Node():
     data = None
     next = None
@@ -92,27 +88,23 @@ class Stack() :
                 nodes.append("[%s] " % current.data)
             current = current.next
         return "-> ".join(nodes)
+
+class Queue(Stack):
+
+    def __init__(self):
+        super().__init__()
+
+    def enqueue(self, element):
+        super().push(element)
+
+    def dequeue(self):
+        super().reverse()
+        deleted = super().pop()
+        super().reverse()
+        return deleted
     
-# stk = Stack()
-# stk.push(10)
-# stk.push(12)
-# stk.push(7)
-# stk.push(14)
-# stk.push(6)
-# stk.push(4)
-# print(stk.get_top())
-# print(stk)
-# stk.reverse()
-# print(stk.get_top())
-# print(stk)
-# stk.reverse()
-# print(stk)
-# stk.print_reverse()
-# stk.pop()
-# stk.pop()
-# print(stk)
-# stk.pop()
-# print(stk)
-# stk.sort()
-# print(stk.get_top())
-# print(stk)
+    def __repr__(self):
+        super().reverse()
+        result = super().__repr__()
+        super().reverse()
+        return result
